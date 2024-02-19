@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class TitleMenu : MonoBehaviour
 {  
+    public GameObject titleMenu;
+    public GameObject loadScreen;
+    public PlayMenu playMenu;
     void Start() 
     {
         if (File.Exists("Assets/Resources/stableDiffusionMaze.jpeg")) 
@@ -12,6 +15,14 @@ public class TitleMenu : MonoBehaviour
         if (File.Exists("Assets/Resources/stableDiffusionMaze.jpeg.meta")) 
         {
             File.Delete("Assets/Resources/stableDiffusionMaze.jpeg.meta");
+        }
+
+        if (PlayerPrefs.GetString("State").Equals("Repeat"))
+        {
+            PlayerPrefs.SetString("State", "");
+            titleMenu.SetActive(false);
+            loadScreen.SetActive(true);
+            playMenu.PlayGame();
         }
     }
      

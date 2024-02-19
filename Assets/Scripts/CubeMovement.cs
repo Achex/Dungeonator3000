@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static MazeGen;
 using static InstallWalls;
 
@@ -13,6 +14,8 @@ public class CubeMovement : MonoBehaviour
     public bool EnableA = true;
     public bool EnableS = true;
     public bool EnableD = true;
+
+    public Canvas loadingScreen;
 
     void Start()
     {
@@ -53,7 +56,7 @@ public class CubeMovement : MonoBehaviour
         Vector3 newPosition = cubePosition + movement * (cubeSpeed / 10);
         //check for collisions before updating the position
         if (!IsColliding(newPosition))
-        {
+        { 
             // cubePosition = newPosition;
             // transform.position = cubePosition;
 
@@ -97,9 +100,13 @@ public class CubeMovement : MonoBehaviour
             }
             else if (hit.collider.CompareTag("goal"))
             {
+                PlayerPrefs.SetString("State", "Repeat");
+                //loadingScreen.gameObject.SetActive(true);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+
                 Debug.Log("well done!");
             }
-                
+
         }
 
         return false;
