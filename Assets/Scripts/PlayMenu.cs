@@ -92,6 +92,8 @@ public class PlayMenu : MonoBehaviour
 
         string controlnetResponseJson = controlnetRequest.downloadHandler.text;
 
+        print("controlnet response: " + controlnetResponseJson);
+
         string encodedPreprocessedImage = JsonUtility.FromJson<ImageResponse>(controlnetResponseJson).images[0];
 
         byte[] decodedBytes = Convert.FromBase64String(encodedPreprocessedImage);
@@ -102,7 +104,7 @@ public class PlayMenu : MonoBehaviour
         string upscalerCheck = UpscalerSetting.options[UpscalerSetting.value].text == string.Empty ? PlayerPrefs.GetString("DefaultUpscaler") : UpscalerSetting.options[UpscalerSetting.value].text;
         string samplerCheck = SamplerSetting.options[SamplerSetting.value].text == string.Empty ? PlayerPrefs.GetString("DefaultSampler") : SamplerSetting.options[SamplerSetting.value].text;
 
-        print("----------------------------");
+        print("---------INITIAL----------");
 
         print(promptInput.text);
         print(NegativePromptSetting.text);
@@ -168,7 +170,7 @@ public class PlayMenu : MonoBehaviour
 
         string responseJson = request.downloadHandler.text;
 
-        print("Response: " + responseJson);
+        print("Stable Diffusion Response: " + responseJson);
 
         string imageBase64 = JsonUtility.FromJson<ImageResponse>(responseJson).images[0];
 
@@ -178,7 +180,7 @@ public class PlayMenu : MonoBehaviour
 
         SaveImage(texOutput, outputFileName);
 
-        print("Done, image saved as " + outputFileName);
+        //print("Done, image saved as " + outputFileName);
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }

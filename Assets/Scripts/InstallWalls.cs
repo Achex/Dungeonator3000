@@ -4,7 +4,6 @@ public static class InstallWalls
 {
     public static void Install(int[][] mazeGrid) 
     {
-        Debug.Log("inside install");
         for(int i=0; i<mazeGrid.Length; i++) 
         {
             for(int j=0; j<mazeGrid[i].Length; j++) 

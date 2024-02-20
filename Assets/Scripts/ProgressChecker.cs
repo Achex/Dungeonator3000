@@ -14,6 +14,7 @@ public class ProgressChecker : MonoBehaviour
 
     void Start()
     {
+        print("hello");
         // Start the coroutine to make the periodic GET requests
         urlCode = PlayerPrefs.GetString("StableDiffusionLink");
         StartCoroutine(MakePeriodicGetRequest());

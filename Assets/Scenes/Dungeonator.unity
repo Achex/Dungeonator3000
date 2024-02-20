@@ -791,9 +791,6 @@ MonoBehaviour:
   cubeSpeed: 0.25
   rotationSpeed: 12
   EnableW: 1
-  EnableA: 1
-  EnableS: 1
-  EnableD: 1
   loadingScreen: {fileID: 1576814664}
 --- !u!23 &354519314
 MeshRenderer:
@@ -1341,7 +1338,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &769073529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2354,6 +2351,7 @@ GameObject:
   - component: {fileID: 1576814664}
   - component: {fileID: 1576814663}
   - component: {fileID: 1576814662}
+  - component: {fileID: 1576814666}
   m_Layer: 5
   m_Name: LoadingScreen
   m_TagString: Untagged
@@ -2446,6 +2444,65 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1576814666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576814661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc9f1e73d33e03144aa5a8d19fefd080, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  progressText: {fileID: 1170775256}
+--- !u!1 &1662151234
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1662151235}
+  - component: {fileID: 1662151236}
+  m_Layer: 0
+  m_Name: UponReachingGoalScript
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1662151235
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1662151234}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.111825, y: 3.818675, z: -3.5058491}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1662151236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1662151234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5cefc70ed5a02346a3457c95e4bd016, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadScreen: {fileID: 1576814661}
+  cube: {fileID: 354519311}
 --- !u!1 &1704288839
 GameObject:
   m_ObjectHideFlags: 0
@@ -2626,3 +2683,4 @@ SceneRoots:
   - {fileID: 1928482572}
   - {fileID: 381769667}
   - {fileID: 351452932}
+  - {fileID: 1662151235}

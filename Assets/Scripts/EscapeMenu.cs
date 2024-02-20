@@ -15,6 +15,7 @@ public class EscapeMenu : MonoBehaviour
 
     public void Start()
     {
+        print("here");
         // Call the method to check for escape key press
         CheckForEscapeKeyPress();
         escapeMenu.enabled = false;
@@ -29,7 +30,7 @@ public class EscapeMenu : MonoBehaviour
     private void CheckForEscapeKeyPress()
     {
         // Check for the Escape key press
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             // Toggle the menu visibility
             ToggleMenu();

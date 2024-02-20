@@ -1,7 +1,8 @@
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
-using static MazeGen;
 using static InstallWalls;
+
 
 public class CubeMovement : MonoBehaviour
 {
@@ -11,14 +12,14 @@ public class CubeMovement : MonoBehaviour
     public float rotationSpeed = 12f;
 
     public bool EnableW = true;
-    public bool EnableA = true;
-    public bool EnableS = true;
-    public bool EnableD = true;
+
+    //private Repeat repeat;
 
     public Canvas loadingScreen;
 
     void Start()
     {
+        PlayerPrefs.SetString("State", "Play");
         string flattenedString = PlayerPrefs.GetString("MazeGrid");
 
         // Split the string into individual rows
@@ -38,6 +39,7 @@ public class CubeMovement : MonoBehaviour
         }
         
         Install(mazeGrid);
+        this.transform.position = new Vector3(-7, 0.1f, 0);
         cubePosition = this.transform.position;
     }
 
@@ -98,13 +100,17 @@ public class CubeMovement : MonoBehaviour
             {
                 return true;
             }
-            else if (hit.collider.CompareTag("goal"))
+            else if (hit.collider.CompareTag("goal") && !PlayerPrefs.GetString("State").Equals("Repeat"))
             {
-                PlayerPrefs.SetString("State", "Repeat");
-                //loadingScreen.gameObject.SetActive(true);
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+                this.transform.position = new Vector3(-7, 0.1f, 0);
+                cubePosition = this.transform.position;
 
-                Debug.Log("well done!");
+
+                PlayerPrefs.SetString("State", "Repeat");
+
+                loadingScreen.gameObject.SetActive(true);
+
+                
             }
 
         }

@@ -369,6 +369,7 @@
 "Assets/Scripts/ProgressChecker.cs"
 "Assets/Scripts/ProgressRequest.cs"
 "Assets/Scripts/ProgressResponse.cs"
+"Assets/Scripts/Repeat.cs"
 "Assets/Scripts/SamplerOptions.cs"
 "Assets/Scripts/SamplingSlider.cs"
 "Assets/Scripts/SliderTextFloatUpdater.cs"
