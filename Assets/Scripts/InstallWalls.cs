@@ -92,7 +92,7 @@ public static class InstallWalls
 
         GameObject goal = GameObject.CreatePrimitive(PrimitiveType.Cube);
         goal.name = "Goal";
-        goal.transform.position = new Vector3(7, 0, 0);
+        goal.transform.position = new Vector3(7.5f, 0, 0);
         goal.transform.localScale = new Vector3(1,1,1);
         goal.tag ="goal";
 

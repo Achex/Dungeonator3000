@@ -30,7 +30,7 @@ public class EscapeMenu : MonoBehaviour
     private void CheckForEscapeKeyPress()
     {
         // Check for the Escape key press
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             // Toggle the menu visibility
             ToggleMenu();
@@ -114,23 +114,32 @@ public class EscapeMenu : MonoBehaviour
     {
         string flattenedString = PlayerPrefs.GetString("MazeGrid");
 
-        // string[] rowStrings = flattenedString.Split(';');
-
-        // int[][] mazeGrid = new int[rowStrings.Length][];
-        // for (int i = 0; i < rowStrings.Length; i++)
-        // {
-        //     string[] stringValues = rowStrings[i].Split(',');
-        //     mazeGrid[i] = new int[stringValues.Length];
-
-        //     for (int j = 0; j < stringValues.Length; j++)
-        //     {
-        //         mazeGrid[i][j] = int.Parse(stringValues[j]);
-        //     }
-        // }
-
         string destinationFilePathMeta = destinationFilePath.Substring(0, destinationFilePath.Length - 4) + ".txt";
 
         File.WriteAllText(destinationFilePathMeta, flattenedString);
+
+        string destinationFilePathSettings = destinationFilePath.Substring(0, destinationFilePath.Length - 4) + "_settings.txt";
+
+        string promptSetting = PlayerPrefs.GetString("Prompt");
+        string negativePromptSetting = PlayerPrefs.GetString("NegativePrompt");
+        string modelSetting = PlayerPrefs.GetString("ModelSetting");
+        string samplerSetting = PlayerPrefs.GetString("SamplerSetting");
+        float samplingStepsSliderSetting = PlayerPrefs.GetFloat("SamplingStepsSlierSetting");
+        float CFGScaleSetting = PlayerPrefs.GetFloat("CFGScaleSetting");
+        string upscalerSetting = PlayerPrefs.GetString("UpscalerSetting");
+        float denoisingStrengthSetting = PlayerPrefs.GetFloat("DenoisingStrengthSetting");
+        float upscaleAmountSlider = PlayerPrefs.GetFloat("UpscaleAmountSlider");
+
+        File.WriteAllText(destinationFilePathSettings, 
+            promptSetting + "\n" +
+            negativePromptSetting + "\n" +
+            modelSetting + "\n" + 
+            samplerSetting + "\n" +
+            samplingStepsSliderSetting + "\n" +
+            CFGScaleSetting + "\n" +
+            upscalerSetting + "\n" +
+            denoisingStrengthSetting + "\n" +
+            upscaleAmountSlider);
     }
 }
     

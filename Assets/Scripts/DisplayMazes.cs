@@ -74,6 +74,18 @@ public class ImageLoader : MonoBehaviour
 
         PlayerPrefs.SetString("MazeGrid", File.ReadAllText(mazeGridInfo));
 
+        string[] lines = File.ReadAllLines(file.Substring(0, file.Length - 4) + "_settings.txt");
+
+        PlayerPrefs.SetString("Prompt", lines[0]);
+        PlayerPrefs.SetString("NegativePrompt", lines[1]);
+        PlayerPrefs.SetString("ModelSetting", lines[2]);
+        PlayerPrefs.SetString("SamplerSetting", lines[3]);
+        PlayerPrefs.SetFloat("SamplingStepsSlierSetting", float.Parse(lines[4]));
+        PlayerPrefs.SetFloat("CFGScaleSetting", float.Parse(lines[5]));
+        PlayerPrefs.SetString("UpscalerSetting", lines[6]);
+        PlayerPrefs.SetFloat("DenoisingStrengthSetting", float.Parse(lines[7]));
+        PlayerPrefs.SetFloat("UpscaleAmountSlider", float.Parse(lines[8]));
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
