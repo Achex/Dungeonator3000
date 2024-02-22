@@ -1,0 +1,10 @@
+platformer videogame
+
+anything-v5.safetensors [11cfe53105]
+DPM++ 2M Karras
+20
+7
+SwinIR_4x
+0.8123333
+2
+Platformer

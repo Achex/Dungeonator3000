@@ -11,7 +11,7 @@ public class ImageLoader : MonoBehaviour
 {
     public GameObject imagePrefab;
     public Transform content;
-    public int imagesPerRow = 4; // Adjust as needed
+    public int imagesPerRow = 4;
     public GameObject loadImagesScreen;
     public GameObject titleScreen;
 
@@ -85,6 +85,7 @@ public class ImageLoader : MonoBehaviour
         PlayerPrefs.SetString("UpscalerSetting", lines[6]);
         PlayerPrefs.SetFloat("DenoisingStrengthSetting", float.Parse(lines[7]));
         PlayerPrefs.SetFloat("UpscaleAmountSlider", float.Parse(lines[8]));
+        PlayerPrefs.SetString("GameMode", lines[9]);
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }

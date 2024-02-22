@@ -7,3 +7,4 @@ DPM++ 2M Karras
 None
 0.2
 2
+Maze

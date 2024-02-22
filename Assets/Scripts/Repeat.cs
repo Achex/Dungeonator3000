@@ -57,8 +57,8 @@ public class Repeat : MonoBehaviour
         PlayerPrefs.Save();
         
         PrintMaze(mazeGrid);
-        Install(mazeGrid);
-
+        
+        Install(mazeGrid, PlayerPrefs.GetString("GameMode"));
 
         // 2: CALL STABLE DIFFUSION
         StartCoroutine(ProcessImages());

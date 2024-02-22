@@ -38,7 +38,8 @@ public class CubeMovement : MonoBehaviour
             }
         }
         
-        Install(mazeGrid);
+        print(PlayerPrefs.GetString("GameMode"));
+        Install(mazeGrid, PlayerPrefs.GetString("GameMode"));
         this.transform.position = new Vector3(-7, 0.1f, 0);
         cubePosition = this.transform.position;
     }

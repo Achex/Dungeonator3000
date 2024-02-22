@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MazeGen : MonoBehaviour
@@ -8,19 +11,112 @@ public class MazeGen : MonoBehaviour
 
     public static int[][] NewMaze()
     {
-        print("Generating new maze");
         random = new();
-
         int width = 15;
         int height = 15;
 
-        int[][] gridList = GenerateMaze(width, height);
+        string gameMode = PlayerPrefs.GetString("GameMode");
+        if (gameMode.Equals("Maze"))
+        {
+            print("Generating new maze");
 
-        GenerateMazeImage(gridList, "Assets/Scripts/blackSquare.png", "Assets/Scripts/whiteSquare.png", width, height);
+            int[][] gridList = GenerateMaze(width, height);
 
-        //PrintMaze(gridList);
+            GenerateMazeImage(gridList, "Assets/Scripts/blackSquare.png", "Assets/Scripts/whiteSquare.png", width, height);
 
-        return gridList;
+            return gridList;
+        }
+        else
+        {
+            print("Generating new platformer");
+
+            int[][] gridList = GeneratePlatformer(width, height);
+
+            GenerateMazeImage(gridList, "Assets/Scripts/blackSquare.png", "Assets/Scripts/whiteSquare.png", width, height);
+
+            return gridList;
+        }
+    }
+
+    static int[][] GeneratePlatformer(int width, int height)
+    {
+        //width and height must be above 2
+        if (width < 2)
+            width = 3;
+        if (height < 2)
+            height = 3;
+
+        //round up width and height to nearest odd number
+        if (width % 2 == 0)
+            width++;
+        if (height % 2 == 0)
+            height++;
+
+        //grid of cells with none walls except floor at i=14
+        int[][] grid = new int[height][];
+        for (int i = 0; i < height; i++)
+        {
+            grid[i] = new int[width];
+            for (int j = 0; j < width; j++)
+            {
+                //set the floor
+                if (i == 14) 
+                {
+                    grid[i][j] = 1;
+                }
+                else 
+                {
+                    grid[i][j] = 0;
+                }
+            }
+        }
+        
+        List<int> selectedRows = GenerateSequence();
+
+        foreach (int row in selectedRows)
+        {
+            int platformStart = random.Next(0,13);
+
+            int platformEnd = random.Next(platformStart+1,14);
+
+            if (platformEnd - platformStart > 12)
+            {
+                platformStart += 2;
+                platformEnd -= 2;
+            }
+
+            for (int i=platformStart; i<=platformEnd; i++)
+            {
+                grid[row][i] = 1;
+            }
+        }
+
+        FlipVertically(grid);
+
+        return grid;
+    }
+
+    private static List<int> GenerateSequence() 
+    {
+        List<int> selectedValues = new();
+
+        int currentRow = 0;
+
+        while (currentRow < 10)
+        {
+            int gap = random.Next(2,4);
+
+            currentRow += gap;
+
+            selectedValues.Add(currentRow);
+        }
+
+        if (selectedValues.Contains(10) && !selectedValues.Contains(12)) 
+        {
+            selectedValues.Add(12);
+        }
+        
+        return selectedValues;
     }
 
     static int[][] GenerateMaze(int width, int height)
@@ -145,6 +241,8 @@ public class MazeGen : MonoBehaviour
         grid[midHeight][width - 1] = 0;
         grid[midHeight][width - 2] = 0;
 
+        FlipVertically(grid);
+
         return grid;
     }
 
@@ -227,5 +325,22 @@ public class MazeGen : MonoBehaviour
 
         grid.Apply();
         return grid;
+    }
+
+    static void FlipVertically(int[][] array)
+    {
+        int numRows = array.Length;
+        int numCols = array[0].Length;
+
+        for (int i = 0; i < numRows / 2; i++)
+        {
+            for (int j = 0; j < numCols; j++)
+            {
+                // Swap values in each row from top to bottom
+                int temp = array[i][j];
+                array[i][j] = array[numRows - 1 - i][j];
+                array[numRows - 1 - i][j] = temp;
+            }
+        }
     }
 }

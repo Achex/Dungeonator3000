@@ -7,3 +7,4 @@ DPM++ 2M Karras
 SwinIR_4x
 0.8416666
 2
+Maze

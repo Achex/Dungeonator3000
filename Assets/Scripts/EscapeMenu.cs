@@ -129,6 +129,7 @@ public class EscapeMenu : MonoBehaviour
         string upscalerSetting = PlayerPrefs.GetString("UpscalerSetting");
         float denoisingStrengthSetting = PlayerPrefs.GetFloat("DenoisingStrengthSetting");
         float upscaleAmountSlider = PlayerPrefs.GetFloat("UpscaleAmountSlider");
+        string gameMode = PlayerPrefs.GetString("GameMode");
 
         File.WriteAllText(destinationFilePathSettings, 
             promptSetting + "\n" +
@@ -139,7 +140,8 @@ public class EscapeMenu : MonoBehaviour
             CFGScaleSetting + "\n" +
             upscalerSetting + "\n" +
             denoisingStrengthSetting + "\n" +
-            upscaleAmountSlider);
+            upscaleAmountSlider + "\n" +
+            gameMode);
     }
 }
     

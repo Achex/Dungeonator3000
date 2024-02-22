@@ -1,0 +1,10 @@
+
+
+anything-v5.safetensors [11cfe53105]
+DPM++ 2M Karras
+20
+7
+None
+0.2
+2
+Platformer
