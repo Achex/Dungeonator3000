@@ -33,27 +33,33 @@ public class PlayMenu : MonoBehaviour
 
     private int[][] mazeGrid;
 
+    private bool inPNCMode;
+
     public void PlayGame() 
     {
         print("Playing game");
-        //string prompt = promptInput.text;
-        //print("prompt: " + prompt);
-        // PlayerPrefs.SetString("Prompt", promptInput.text);
-        // PlayerPrefs.Save();
 
-        // 1: CALL MAZE GEN
-        mazeGrid = NewMaze();
+        inPNCMode = PlayerPrefs.GetString("GameMode").Equals("PNC");
 
-        //Flatten the 2D array into a 1D array
-        string flattenedString = FlattenJaggedArray(mazeGrid);
-        PlayerPrefs.SetString("MazeGrid", flattenedString);
-        PlayerPrefs.Save();
-        
-        PrintMaze(mazeGrid);
+        if (!inPNCMode) 
+        {        
+            // 1: CALL MAZE GEN
+            mazeGrid = NewMaze();
+
+            //Flatten the 2D array into a 1D array
+            string flattenedString = FlattenJaggedArray(mazeGrid);
+            PlayerPrefs.SetString("MazeGrid", flattenedString);
+            PlayerPrefs.Save();
+            
+            PrintMaze(mazeGrid);
+        }
+        else
+        {
+            PlayerPrefs.SetString("PNCRoom", "Street");
+        }
 
         // 2: CALL STABLE DIFFUSION
         StartCoroutine(ProcessImages());
-
     }
 
     public TMP_InputField NegativePromptSetting;
@@ -67,20 +73,24 @@ public class PlayMenu : MonoBehaviour
 
     private string urlCode;
     private readonly string controlnetMaze = "Assets/Resources/mazeImage.png";
-    private readonly string controlnetPreprocessor = "lineart_standard (from white bg & black line)";
-    private readonly string controlnetModel = "control_v11p_sd15_seg_fp16 [ab613144]";
-    private readonly string outputFileName = "Assets/Resources/stableDiffusionMaze.jpeg";
+    private readonly string controlnetStreetPNCBase = "Assets/Resources/StreetPNCBase.png";
+    private readonly string controlnetLineartStandardPreprocessor = "lineart_standard (from white bg & black line)";
+    private readonly string controlnetLineartRealisticPreprocessor = "lineart_realistic";
+    private readonly string controlnetSegModel = "control_v11p_sd15_seg_fp16 [ab613144]";
+    private readonly string controlnetLineartModel = "control_v11p_sd15_lineart [43d4be0d]";
+    private readonly string outputFileNameMaze = "Assets/Resources/stableDiffusionMaze.jpeg";
+    private readonly string outputFileNamePNC = "Assets/Resources/stableDiffusionStreet.jpeg";
 
     //STABLE DIFFUSION CALLER
     IEnumerator ProcessImages()
     {
         //encode image to base64 for json request
-        byte[] imageBytes = File.ReadAllBytes(controlnetMaze);
+        byte[] imageBytes = File.ReadAllBytes(inPNCMode ? controlnetStreetPNCBase : controlnetMaze);
         string encodedImage = Convert.ToBase64String(imageBytes);
 
         ControlnetRequest controlnetJsonData = new()
         {
-            controlnet_module = controlnetPreprocessor,
+            controlnet_module = inPNCMode ? controlnetLineartRealisticPreprocessor : controlnetLineartStandardPreprocessor,
             controlnet_input_images = new List<string> {encodedImage},
             controlnet_processor_res = 512,
             controlnet_threshold_a = 64,
@@ -153,7 +163,7 @@ public class PlayMenu : MonoBehaviour
                         new ControlnetArgs() 
                         {
                             input_image = encodedPreprocessedImage, //encodedImage bypasses preprocessor, switch to encodedPreprocessedImage to use preprocessor
-                            model = controlnetModel,
+                            model = inPNCMode ? controlnetLineartModel : controlnetSegModel,
                             resize_mode = 1,
                             control_mode = 0,
                             weight = 1
@@ -178,7 +188,7 @@ public class PlayMenu : MonoBehaviour
         Texture2D texOutput = new Texture2D(2, 2);
         texOutput.LoadImage(imageBytesOutput);
 
-        SaveImage(texOutput, outputFileName);
+        SaveImage(texOutput, inPNCMode ? outputFileNamePNC : outputFileNameMaze);
 
         //print("Done, image saved as " + outputFileName);
 

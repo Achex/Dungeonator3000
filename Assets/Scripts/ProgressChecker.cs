@@ -7,15 +7,13 @@ using UnityEngine.Networking;
 public class ProgressChecker : MonoBehaviour
 {
     public TMP_Text progressText;
-    //private string urlCode = "https://f8d04dbda3c37903cc.gradio.live";
     private string urlCode;
     private string progressAPI = "/sdapi/v1/progress";
     private string argument = "?=skip_current_image=true";
 
-    void Start()
+    void OnEnable() //THIS WAS START. MIGHT SCREW WITH PREVIOUS WORK THAT I CHANGED IT
     {
-        print("hello");
-        // Start the coroutine to make the periodic GET requests
+        //start the coroutine to make periodic requests
         urlCode = PlayerPrefs.GetString("StableDiffusionLink");
         StartCoroutine(MakePeriodicGetRequest());
     }

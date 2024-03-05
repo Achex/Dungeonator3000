@@ -38,16 +38,6 @@ public class Repeat : MonoBehaviour
 
     public void MakeNewMaze() 
     {
-        // GameObject[] allGameObjects = GameObject.FindObjectsOfType<GameObject>();
-
-        // foreach (GameObject obj in allGameObjects)
-        // {
-        //     if (obj.name.Contains("Wall") || obj.name.Contains("Left Cap") || obj.name.Contains("Right Cap") || obj.name.Contains("Goal"))
-        //     {
-        //         Destroy(obj.gameObject);
-        //     }
-        // }
-
         // 1: CALL MAZE GEN
         mazeGrid = NewMaze();
 

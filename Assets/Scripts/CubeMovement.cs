@@ -16,30 +16,40 @@ public class CubeMovement : MonoBehaviour
     //private Repeat repeat;
 
     public Canvas loadingScreen;
+    public GameObject PNCButtons;
 
     void Start()
     {
-        PlayerPrefs.SetString("State", "Play");
-        string flattenedString = PlayerPrefs.GetString("MazeGrid");
+        print("GameMode at playtime: " + PlayerPrefs.GetString("GameMode"));
+        PlayerPrefs.SetString("State", "Play");         //can we remove this?
 
-        // Split the string into individual rows
-        string[] rowStrings = flattenedString.Split(';');
-
-        // Convert row strings back to integer arrays
-        int[][] mazeGrid = new int[rowStrings.Length][];
-        for (int i = 0; i < rowStrings.Length; i++)
+        if (!PlayerPrefs.GetString("GameMode").Equals("PNC")) 
         {
-            string[] stringValues = rowStrings[i].Split(',');
-            mazeGrid[i] = new int[stringValues.Length];
+            string flattenedString = PlayerPrefs.GetString("MazeGrid");
 
-            for (int j = 0; j < stringValues.Length; j++)
+            // Split the string into individual rows
+            string[] rowStrings = flattenedString.Split(';');
+
+            // Convert row strings back to integer arrays
+            int[][] mazeGrid = new int[rowStrings.Length][];
+            for (int i = 0; i < rowStrings.Length; i++)
             {
-                mazeGrid[i][j] = int.Parse(stringValues[j]);
+                string[] stringValues = rowStrings[i].Split(',');
+                mazeGrid[i] = new int[stringValues.Length];
+
+                for (int j = 0; j < stringValues.Length; j++)
+                {
+                    mazeGrid[i][j] = int.Parse(stringValues[j]);
+                }
             }
+            
+            Install(mazeGrid, PlayerPrefs.GetString("GameMode"));
+        }
+        else
+        {
+            PNCButtons.SetActive(true);
         }
         
-        print(PlayerPrefs.GetString("GameMode"));
-        Install(mazeGrid, PlayerPrefs.GetString("GameMode"));
         this.transform.position = new Vector3(-7, 0.1f, 0);
         cubePosition = this.transform.position;
     }
@@ -106,12 +116,9 @@ public class CubeMovement : MonoBehaviour
                 this.transform.position = new Vector3(-7, 0.1f, 0);
                 cubePosition = this.transform.position;
 
-
                 PlayerPrefs.SetString("State", "Repeat");
 
                 loadingScreen.gameObject.SetActive(true);
-
-                
             }
 
         }

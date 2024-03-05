@@ -3,11 +3,25 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public Transform player;
+    public GameObject cube;
     public float maxDistance = 5f; 
+    private bool inPNCMode;
+
+    void Start()
+    {
+        inPNCMode = PlayerPrefs.GetString("GameMode").Equals("PNC");
+        if (inPNCMode)
+        {
+            cube.SetActive(false);
+            transform.position = new Vector3(0,12,0);
+        }
+    }
+
+
 
     void Update()
     {
-        if (player != null)
+        if (!inPNCMode && player != null)
         {
             Vector3 playerPos = player.position;
 

@@ -15,7 +15,6 @@ public class EscapeMenu : MonoBehaviour
 
     public void Start()
     {
-        print("here");
         // Call the method to check for escape key press
         CheckForEscapeKeyPress();
         escapeMenu.enabled = false;

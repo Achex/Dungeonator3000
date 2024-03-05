@@ -366,6 +366,7 @@
 "Assets/Scripts/ModelOptions.cs"
 "Assets/Scripts/PlayerCollision.cs"
 "Assets/Scripts/PlayMenu.cs"
+"Assets/Scripts/PNCButtonActions.cs"
 "Assets/Scripts/ProgressChecker.cs"
 "Assets/Scripts/ProgressRequest.cs"
 "Assets/Scripts/ProgressResponse.cs"

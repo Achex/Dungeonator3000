@@ -27,6 +27,24 @@ public class MazeInserter : MonoBehaviour
         }
     }
 
+    // static void SetPNCTexture(string PNCImagePath)
+    // {
+    //     TextureImporter textureImporter = AssetImporter.GetAtPath(PNCImagePath) as TextureImporter;
+
+    //     if (textureImporter != null)
+    //     {
+    //         textureImporter.textureType = TextureImporterType.Sprite;
+    //         textureImporter.spriteImportMode = SpriteImportMode.Single;
+
+    //         AssetDatabase.ImportAsset(PNCImagePath);
+    //         AssetDatabase.Refresh();
+    //     }
+    //     else
+    //     {
+    //         Debug.LogError("Texture importer not found. Make sure the path is correct.");
+    //     }
+    // }
+
     void Update()
     {
         if (!detected && File.Exists("Assets/Resources/mazeImage.png")) 

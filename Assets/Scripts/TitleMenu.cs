@@ -11,7 +11,6 @@ public class TitleMenu : MonoBehaviour
 
     void Start() 
     {
-        //PlayerPrefs.SetString("GameMode", "");
         if (File.Exists("Assets/Resources/stableDiffusionMaze.jpeg")) 
         {
             File.Delete("Assets/Resources/stableDiffusionMaze.jpeg");
@@ -21,19 +20,32 @@ public class TitleMenu : MonoBehaviour
             File.Delete("Assets/Resources/stableDiffusionMaze.jpeg.meta");
         }
 
-        // if (PlayerPrefs.GetString("State").Equals("Repeat"))
-        // {
-        //     PlayerPrefs.SetString("State", "");
-        //     titleMenu.SetActive(false);
-        //     playScreen.SetActive(true);
-        //     playMenu = playScreen.GetComponent<PlayMenu>();
-        //     GameObject.Find("ConfirmButton").SetActive(false);
-        //     GameObject.Find("PromptInput").SetActive(false);
-        //     GameObject.Find("AdvancedOptionsButton").SetActive(false);
-        //     GameObject.Find("PlayBackButton").SetActive(false);
-        //     loadScreen.SetActive(true);
-        //     playMenu.PlayGame();
-        // }
+        if (File.Exists("Assets/Resources/stableDiffusionInside.jpeg")) 
+        {
+            File.Delete("Assets/Resources/stableDiffusionInside.jpeg");
+        }
+        if (File.Exists("Assets/Resources/stableDiffusionInside.jpeg.meta")) 
+        {
+            File.Delete("Assets/Resources/stableDiffusionInside.jpeg.meta");
+        }
+
+        if (File.Exists("Assets/Resources/stableDiffusionStreet.jpeg")) 
+        {
+            File.Delete("Assets/Resources/stableDiffusionStreet.jpeg");
+        }
+        if (File.Exists("Assets/Resources/stableDiffusionStreet.jpeg.meta")) 
+        {
+            File.Delete("Assets/Resources/stableDiffusionStreet.jpeg.meta");
+        }
+
+        if (File.Exists("Assets/Resources/stableDiffusionTown.jpeg")) 
+        {
+            File.Delete("Assets/Resources/stableDiffusionTown.jpeg");
+        }
+        if (File.Exists("Assets/Resources/stableDiffusionTown.jpeg.meta")) 
+        {
+            File.Delete("Assets/Resources/stableDiffusionTown.jpeg.meta");
+        }
     }
      
     public void QuitGame()
@@ -49,7 +61,12 @@ public class TitleMenu : MonoBehaviour
 
     public void SetMazeMode()
     {
-         PlayerPrefs.SetString("GameMode", "Maze");
+        PlayerPrefs.SetString("GameMode", "Maze");
+    }
+
+    public void SetPNCMode()
+    {
+        PlayerPrefs.SetString("GameMode", "PNC");
     }
 
     public static System.Random random;
